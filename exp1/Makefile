@@ -2,25 +2,24 @@ INCLUDE_PATH = ./include
 SRC_PATH = ./src
 TARGET_PATH = ./target
 DATA_PATH = ./data
-target = ${TARGET_PATH}/a.out
+PICTURE_PATH = ./picture
 
+TARGET = ${TARGET_PATH}/a.out
 CC = g++
 CCFLAGS = -I${INCLUDE_PATH} -std=c++17 -O2 -Wall -Wextra -Werror
 
-${target}:
-	${CC} ${SRC_PATH}/main.cc ${CCFLAGS} -o ${target}
+${TARGET}:
+	${CC} ${SRC_PATH}/main.cc ${CCFLAGS} -o ${TARGET}
 data:
 	mkdir -p ${DATA_PATH}
-	${CC} ${SRC_PATH}/generate.cc ${CCFLAGS} -o ${target}
-	${target}
-	${RM} ${target}
+	${CC} ${SRC_PATH}/generate.cc ${CCFLAGS} -o ${TARGET}
+	${TARGET}
+	${RM} ${TARGET}
 paint: 
 	python ${SRC_PATH}/main.py
 	code ${TARGET_PATH}/1.jpg
 all:
-	make clean && make data && make ${target}
-	${target} && make paint
+	make clean && make data && make ${TARGET} && ${TARGET} && make paint
 clean:
-	${RM} -r ${target} ${DATA_PATH}
-
+	${RM} -r ${TARGET}
 .PHONY: all clean data

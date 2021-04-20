@@ -29,4 +29,4 @@ with open('./target/1.out', 'r') as f:
 plt.scatter(x, y, s=5, c='b')
 plt.plot(px, py)
 plt.scatter(px, py, s=15, c='r')
-plt.savefig('./target/1.jpg')
+plt.savefig('./picture/1.jpg')
