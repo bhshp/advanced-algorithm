@@ -4,6 +4,9 @@
 #define POINT_H_
 
 struct point {
+    friend std::istream& operator>>(std::istream& is, point& p);
+    friend std::ostream& operator<<(std::ostream& os, const point& p);
+
    public:
     point(double x = 0.0, double y = 0.0);
 
@@ -25,7 +28,7 @@ struct point {
     point& operator/=(double k);
 
     double operator*(const point& other) const;
-    point operator^(const point& other) const;
+    double operator^(const point& other) const;
 
    private:
     double x_, y_;
@@ -33,70 +36,78 @@ struct point {
 
 // Implementation
 
-point::point(double x, double y) : x_{x}, y_{y} {}
+inline std::istream& operator>>(std::istream& is, point& p) {
+    return is >> p.x_ >> p.y_;
+}
 
-double point::x() const { return x_; }
+inline std::ostream& operator<<(std::ostream& os, const point& p) {
+    return os << p.x_ << ' ' << p.y_;
+}
 
-double point::y() const { return y_; }
+inline point::point(double x, double y) : x_{x}, y_{y} {}
 
-bool point::operator<(const point& other) const {
+inline double point::x() const { return x_; }
+
+inline double point::y() const { return y_; }
+
+inline bool point::operator<(const point& other) const {
     return x() == other.x() ? y() < other.y() : x() < other.x();
 }
 
-bool point::operator==(const point& other) const {
+inline bool point::operator==(const point& other) const {
     return x() == other.x() && y() == other.y();
 }
 
-point point::operator+(const point& other) const {
+inline point point::operator+(const point& other) const {
     return point{x() + other.x(), y() + other.y()};
 }
 
-point point::operator-(const point& other) const {
+inline point point::operator-(const point& other) const {
     return point{x_ - other.x_, y_ - other.y_};
 }
 
-point point::operator-() const {
+inline point point::operator-() const {
     return point{-x_, -y_};
 }
 
-point point::operator*(double k) const {
+inline point point::operator*(double k) const {
     return point{x_ * k, y_ * k};
 }
 
-point point::operator/(double k) const {
+inline point point::operator/(double k) const {
     return point{x_ / k, y_ / k};
 }
 
-point& point::operator+=(const point& other) {
+inline point& point::operator+=(const point& other) {
     this->x_ += other.x_;
     this->y_ += other.y_;
     return *this;
 }
 
-point& point::operator-=(const point& other) {
+inline point& point::operator-=(const point& other) {
     this->x_ -= other.x_;
     this->y_ -= other.y_;
     return *this;
 }
 
-point& point::operator*=(double k) {
+inline point& point::operator*=(double k) {
     this->x_ *= k;
     this->y_ *= k;
     return *this;
 }
 
-point& point::operator/=(double k) {
+inline point& point::operator/=(double k) {
     this->x_ /= k;
     this->y_ /= k;
     return *this;
 }
 
-double point::operator*(const point& other) const {
+inline double point::operator*(const point& other) const {
     return x_ * other.x_ + y_ * other.y_;
 }
 
-point point::operator^(const point& other) const {
-    return point{x_ * other.y_, y_ * other.x_};
+inline double point::operator^(const point& other) const {
+    return x_ * other.y_ - y_ * other.x_;
 }
 
 #endif  // POINT_H_
