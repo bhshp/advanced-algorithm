@@ -3,6 +3,8 @@
 #ifndef POINT_H_
 #define POINT_H_
 
+#include "util.h"
+
 struct point {
     friend std::istream& operator>>(std::istream& is, point& p);
     friend std::ostream& operator<<(std::ostream& os, const point& p);
@@ -29,6 +31,9 @@ struct point {
 
     double operator*(const point& other) const;
     double operator^(const point& other) const;
+
+    double length() const;
+    double length2() const;
 
    private:
     double x_, y_;
@@ -108,6 +113,14 @@ inline double point::operator*(const point& other) const {
 
 inline double point::operator^(const point& other) const {
     return x_ * other.y_ - y_ * other.x_;
+}
+
+inline double point::length() const {
+    return std::sqrt(length2());
+}
+
+inline double point::length2() const {
+    return sqr(x_) * sqr(y_);
 }
 
 #endif  // POINT_H_

@@ -17,9 +17,10 @@ data:
 	${RM} ${TARGET}
 paint: 
 	python ${SRC_PATH}/main.py
-	code ${TARGET_PATH}/1.jpg
+	code ${PICTURE_PATH}/1.jpg
 all:
-	make clean && make data && make ${TARGET} && ${TARGET} && make paint
+	make clean && make ${TARGET} && ${TARGET}
 clean:
+	mkdir -p ${TARGET_PATH}
 	${RM} -r ${TARGET}
 .PHONY: all clean data

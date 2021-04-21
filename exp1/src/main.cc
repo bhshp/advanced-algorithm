@@ -1,41 +1,49 @@
 #include <algorithm>
 #include <chrono>
 #include <fstream>
+#include <functional>
 #include <iostream>
+#include <string>
 #include <vector>
 
+#include "algorithm.h"
 #include "point.h"
 #include "util.h"
 
-int main() {
-    std::ofstream out("./target/1.out");
-    std::ifstream in("./data/1.in");
-    if (!in.is_open() || !out.is_open()) {
-        std::cout << "Cannot open files" << std::endl;
-        return 0;
-    }
+using namespace std;
+using namespace chrono_literals;
 
+void test(int index, function<vector<point>(const vector<point> &)> f, const std::string &name) {
+    string in_path = "./data/" + to_string(index) + ".in";
+    // input and output initialize
+    ifstream in(in_path);
+    if (!in.is_open()) {
+        cout << "Cannot open files" << endl;
+        return;
+    }
+    // input
     int n;
     in >> n;
-    std::vector<point> v;
-    std::copy_n(std::istream_iterator<point>{in}, n, std::back_inserter(v));
+    vector<point> v;
+    copy_n(istream_iterator<point>{in}, n, back_inserter(v));
 
-    using namespace std::chrono_literals;
-    std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-    std::vector<point> res = enumerate_convex_hull(v);
-    std::cout << (std::chrono::high_resolution_clock::now() - start) / 1ms << " ms elapsed" << std::endl;
+    // calculate and count time
+    chrono::high_resolution_clock::time_point start = chrono::high_resolution_clock::now();
+    auto res = f(v);
+    cout << n << " points using " << name << " algorithm: "
+         << (chrono::high_resolution_clock::now() - start) / 1ms << " ms" << endl;
 
-    std::vector<point>::iterator minimum_pos = std::min_element(res.begin(), res.end());
-    point minimum = *minimum_pos;
-    if (minimum_pos != res.begin() && minimum_pos != res.end()) {
-        std::swap(*minimum_pos, *res.begin());
-    }
-    std::sort(res.begin() + 1, res.end(), [&minimum](const point &a, const point &b) -> bool {
-        return std::atan2(a.y() - minimum.y(), a.x() - minimum.x()) < std::atan2(b.y() - minimum.y(), b.x() - minimum.x());
-    });
+    std::ofstream out("./target/" + std::to_string(index) + ".out");
     out << res.size() << std::endl;
-    for (const point &p : res) {
+    for (const auto &p : res) {
         out << p << std::endl;
+    }
+}
+
+int main() {
+    for (int i = 1; i <= 5; i++) {
+        // test(i, graham_scan, "graham-scan");
+        test(i, divide_and_conquer, "divide-and-conquer");
     }
     return 0;
 }
