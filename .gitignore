@@ -32,3 +32,9 @@
 *.app
 
 /exp1/target
+/exp1/data
+/exp2/target
+/exp3/target
+/exp4/target
+/exp4/data/*
+!/exp4/data/temp.txt
