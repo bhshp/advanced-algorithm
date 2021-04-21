@@ -21,19 +21,6 @@ void test(const string &name, vector<int> data, int i, function<void(vector<int>
 }
 
 int main() {
-#define ENLARGE_STACK
-#ifdef ENLARGE_STACK
-    const int stack_size = 128 << 20;
-    __asm("movl %0, %%esp\n" ::"r"((char *)malloc(stack_size) + stack_size));
-#endif
-
-    cout << "Stack is "
-#ifndef ENLARGE_STACK
-            "not "
-#endif
-            "enlarged"
-         << endl;
-
     const int size = 1e6;
     for (int i = 10; i <= 10; i++) {
         vector<int> data = generate_data(size, i);
