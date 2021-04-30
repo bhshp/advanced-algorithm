@@ -9,7 +9,7 @@ Coding finished.
 
 ## 2. *exp2: A-Star Search*
 
-Rough structure implementation.
+Coding finished.
 
 ## 3. *exp3: Approximation Algorithm*
 
