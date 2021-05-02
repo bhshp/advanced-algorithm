@@ -13,7 +13,7 @@ Coding finished.
 
 ## 3. *exp3: Approximation Algorithm*
 
-No implementation yet.
+Coding finished.
 
 ## 4. *exp4: Quicksort*
 
