@@ -1,20 +1,24 @@
 # Advanced Algorithm
 HIT Advanced Algorithm
 
-# Current Status
+# Usage
 
 ## 1. *exp 1: Convex Hull*
 
-Coding finished.
+`make clean` can clean `a.out` file and `*.txt` in `./target/`
+
+`make all` can compile and run code
+
+`make paint` generate picture with `*.txt` in `./target/`
 
 ## 2. *exp2: A-Star Search*
 
-Coding finished.
+TODO
 
 ## 3. *exp3: Approximation Algorithm*
 
-Coding finished.
+TODO
 
 ## 4. *exp4: Quicksort*
 
-Coding finished.
+TODO

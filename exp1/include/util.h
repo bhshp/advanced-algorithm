@@ -3,11 +3,7 @@
 #ifndef UTIL_H_
 #define UTIL_H_
 
-#include <algorithm>
 #include <cmath>
-#include <iterator>
-#include <random>
-#include <vector>
 
 constexpr double eps = 1e-8;
 
@@ -24,8 +20,6 @@ inline int sgn(double x) {
     return x > 0 ? 1 : -1;
 }
 
-inline double sqr(double x) {
-    return x * x;
-}
+inline double sqr(double x) { return x * x; }
 
 #endif  // UTIL_H_

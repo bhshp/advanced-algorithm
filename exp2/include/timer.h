@@ -4,6 +4,7 @@
 #define TIMER_H_
 
 #include <chrono>
+#include <iostream>
 
 struct timer {
    public:

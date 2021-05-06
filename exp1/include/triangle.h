@@ -3,25 +3,25 @@
 #ifndef TRIANGLE_H_
 #define TRIANGLE_H_
 
-#include "point.h"
+#include "point2d.h"
 #include "util.h"
 
 struct triangle {
    public:
-    triangle(const point& a = point{}, const point& b = point{}, const point& c = point{});
-    bool in(const point& p) const;
+    triangle(const point2d& a = point2d{}, const point2d& b = point2d{}, const point2d& c = point2d{});
+    bool in(const point2d& p) const;
 
    private:
-    point a_, b_, c_;
+    point2d a_, b_, c_;
 };
 
-bool point_on_segment(const point& a, const point& b, const point& p);
+bool point_on_segment(const point2d& a, const point2d& b, const point2d& p);
 
 // Implementation
 
-triangle::triangle(const point& a, const point& b, const point& c) : a_{a}, b_{b}, c_{c} {}
+triangle::triangle(const point2d& a, const point2d& b, const point2d& c) : a_{a}, b_{b}, c_{c} {}
 
-bool triangle::in(const point& p) const {
+bool triangle::in(const point2d& p) const {
     int t1 = sgn((b_ - a_) ^ (p - a_)), // AB ^ AP
         t2 = sgn((c_ - b_) ^ (p - b_)), // BC ^ BP
         t3 = sgn((a_ - c_) ^ (p - c_)); // CA ^ CP
