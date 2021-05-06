@@ -5,6 +5,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <string>
 
 struct convex_hull_timer {
    public:

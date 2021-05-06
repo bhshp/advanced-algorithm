@@ -12,7 +12,6 @@
 
 #include "point2d.h"
 #include "triangle.h"
-#include "util.h"
 
 using set_type = std::vector<point2d>;
 using function_type = std::function<set_type(set_type)>;
@@ -83,8 +82,8 @@ inline set_type graham_scan(set_type v) {
     set_type res;
     for (size_t i = 0; i < v.size(); i++) {
         if (i >= 3) {
-            while (!res.empty() && ((v[i] - res[res.size() - 2]) ^
-                                    (res.back() - res[res.size() - 2])) > 0) {
+            while (!res.empty() && ((v[i] - *(res.rbegin() + 1)) ^
+                                    (res.back() - *(res.rbegin() + 1))) > 0) {
                 res.pop_back();
             }
         }
@@ -95,7 +94,7 @@ inline set_type graham_scan(set_type v) {
 
 inline set_type divide_and_conquer(set_type v) {
     std::sort(v.begin(), v.end());
-    std::function<set_type(set_type)> impl = [&impl](set_type v) -> set_type {
+    function_type impl = [&impl](set_type v) -> set_type {
         if (v.size() < 3) {
             return v;
         } else if (v.size() == 3) {
@@ -137,7 +136,7 @@ inline set_type divide_and_conquer(set_type v) {
         for (size_t i = 0; i < s.size(); i++) {
             if (i >= 3) {
                 while (s.size() >= 2 &&
-                       ((s[i] - (*(res.rbegin() + 1))) ^
+                       ((s[i] - *(res.rbegin() + 1)) ^
                         (res.back() - *(res.rbegin() + 1))) > 0) {
                     res.pop_back();
                 }
