@@ -1,6 +1,6 @@
-#include "algorithm.h"
 #include "data_generator.h"
 #include "glpk_wrapper.h"
+#include "set_cover.h"
 #include "timer.h"
 
 int main() {

@@ -147,7 +147,12 @@ bool graticule::in(const point& p) const {
 }
 
 void graticule::save(const char* path) const {
-    std::ofstream{path} << *this << std::flush;
+    std::ofstream out{path};
+    if (!out.is_open()) {
+        return;
+    }
+    out << *this << std::flush;
+    out.close();
 }
 
 #endif  // GRATICULE_H_

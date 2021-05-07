@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef ALGORITHM_H_
-#define ALGORITHM_H_
+#ifndef A_STAR_H_
+#define A_STAR_H_
 
 #include <functional>
 #include <limits>
@@ -11,6 +11,9 @@
 #include "graticule.h"
 #include "point.h"
 
+#define MANHATTAN
+
+using function_type = std::function<graticule(const graticule &)>;
 using node_type = std::pair<double, point>;
 using container_type = std::vector<node_type>;
 using cmp_type = std::function<double(const node_type &, const node_type &)>;
@@ -27,9 +30,20 @@ graticule unidirection_a_star(const graticule &map) {
     if (map.start() == map.end()) {
         return map;
     }
-    auto g = [](double x) -> double { return (1 + 1e-6) * x; };
+    auto g = [](double x) -> double { return x; };
     auto h = [&map](const point &a) -> double {
-        return a.manhattan_distance(map.end());
+        double ratio = 1 - 1e-6;
+#if defined(MANHATTAN)
+        return ratio * a.manhattan_distance(map.end());
+#else
+        double x = std::abs(a.x() - map.end().x());
+        double y = std::abs(a.y() - map.end().y());
+        if (x > y) {
+            std::swap(x, y);
+        }
+        double dis = (y - x) + x * std::sqrt(2);
+        return ratio * dis;
+#endif
     };
     auto f = [&g, &h](const node_type &a) -> double {
         return g(a.first) + h(a.second);
@@ -42,8 +56,8 @@ graticule unidirection_a_star(const graticule &map) {
     const point dummy = point{-1, -1};
     double sum = 0;
 
-    vector<vector<bool>> vis(map.height(), vector(map.width(), false));
-    vector<vector<point>> pre(map.height(), vector(map.width(), dummy));
+    vector vis(map.height(), vector(map.width(), false));
+    vector pre(map.height(), vector(map.width(), dummy));
 
     vis[map.start().x()][map.start().y()] = true;
     q.emplace(0, map.start());
@@ -92,9 +106,20 @@ graticule bidirection_a_star(const graticule &map) {
     if (start == end) {
         return map;
     }
-    auto g = [](double x) -> double { return (1 + 1e-6) * x; };
+    auto g = [](double x) -> double { return x; };
     auto h = [](const point &a, const point &p) -> double {
-        return a.manhattan_distance(p);
+        double ratio = 1 - 1e-6;
+#if defined(MANHATTAN)
+        return ratio * a.manhattan_distance(p);
+#else
+        double x = std::abs(a.x() - p.x());
+        double y = std::abs(a.y() - p.y());
+        if (x > y) {
+            std::swap(x, y);
+        }
+        double dis = (y - x) + x * std::sqrt(2);
+        return ratio * dis;
+#endif
     };
     auto f = [&g, &h](const node_type &a, const point &p) -> double {
         return g(a.first) + h(a.second, p);
@@ -110,9 +135,9 @@ graticule bidirection_a_star(const graticule &map) {
     const double inf = std::numeric_limits<double>::infinity();
 
     queue_type q1{cmp1}, q2{cmp2};
-    std::vector<std::vector<int>> vis(height, std::vector(width, 0));
-    std::vector<std::vector<point>> pre(height, std::vector(width, dummy));
-    std::vector<std::vector<double>> dis(height, std::vector(width, inf));
+    std::vector vis(height, std::vector(width, 0));
+    std::vector pre(height, std::vector(width, dummy));
+    std::vector dis(height, std::vector(width, inf));
 
     vis[start.x()][start.y()] = 1;
     dis[start.x()][start.y()] = 0;
@@ -206,4 +231,4 @@ graticule bidirection_a_star(const graticule &map) {
     return result;
 }
 
-#endif  // ALGORITHM_H_
+#endif  // A_STAR_H_

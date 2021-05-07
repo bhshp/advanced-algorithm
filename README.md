@@ -7,13 +7,17 @@ HIT Advanced Algorithm
 
 `make clean` can clean `a.out` file and `*.txt` in `./target/`
 
-`make all` can compile and run code
+`make all` can clean, compile, then run code
 
 `make paint` generate picture with `*.txt` in `./target/`
 
 ## 2. *exp2: A-Star Search*
 
-TODO
+`make clean` can clean `a.out` file and `*.ppm` in `./target/`
+
+`make all` can clean, compile, then run code
+
+`make paint` generate picture with `*.ppm` in `./target/`
 
 ## 3. *exp3: Approximation Algorithm*
 

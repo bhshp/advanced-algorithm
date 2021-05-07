@@ -65,6 +65,6 @@ const std::unordered_map<point_type, color> color::map{
     {NORMAL, color{255, 255, 255}},   {BARRIER, color{127, 127, 127}},
     {WATER, color{0, 176, 240}},      {SAND, color{255, 192, 0}},
     {START_END, color{63, 194, 112}}, {PATH, color{252, 1, 25}},
-    {MID, color{250, 182, 184}},      {OTHER_PATH, color{197, 134, 192}}};
+    {MID, color{21, 67, 96}},       {OTHER_PATH, color{197, 134, 192}}};
 
 #endif  // COLOR_H_
