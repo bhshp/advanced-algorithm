@@ -19,7 +19,7 @@ timer::timer() : start_time_{std::chrono::system_clock::now()} {}
 timer::~timer() {
     using namespace std::chrono_literals;
     std::cout << (std::chrono::system_clock::now() - start_time_) / 1ms
-              << " ms\n"
+              << " ms"
               << std::endl;
 }
 
