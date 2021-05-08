@@ -14,7 +14,7 @@ std::vector<int> generate_data(int size, int duplicate_rate) {
     int duplicate = size / 10 * duplicate_rate;
     static std::mt19937_64 gen(std::random_device{}());
     std::vector<int> result(size);
-    std::iota(std::begin(result), std::end(result), 0);
+    std::iota(result.begin(), result.end(), 0);
     std::shuffle(std::begin(result), std::end(result), gen);
     int temp = result.front();
     for (int i = 0; i < duplicate; i++) {

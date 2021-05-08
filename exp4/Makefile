@@ -4,7 +4,7 @@ TARGET_PATH = ./target
 
 TARGET = ${TARGET_PATH}/a.out
 CC = g++
-CCFLAGS = -I${INCLUDE_PATH} -std=c++17 -O3 -Wall -Wextra -Werror -m32
+CCFLAGS = -I${INCLUDE_PATH} -std=c++17 -O2 -Wall -Wextra -pedantic-errors -Werror -m32
 
 ${TARGET}:
 	${CC} ${SRC_PATH}/main.cc ${CCFLAGS} -o ${TARGET}

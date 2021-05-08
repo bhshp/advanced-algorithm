@@ -4,6 +4,7 @@
 #define SORT_H_
 
 #include <random>
+#include <stack>
 #include <vector>
 
 int random_partition(std::vector<int> &A, int p, int r) {
@@ -40,7 +41,8 @@ void insertion_sort(std::vector<int> &A, int p, int r) {
     }
 }
 
-std::pair<int, int> three_mid_partition_with_gathering(std::vector<int> &A, int p, int r) {
+std::pair<int, int> three_mid_partition_with_gathering(std::vector<int> &A,
+                                                       int p, int r) {
     int q = p + (r - p) / 2;
     if (A[p] > A[r]) {
         std::swap(A[p], A[r]);
@@ -74,14 +76,20 @@ std::pair<int, int> three_mid_partition_with_gathering(std::vector<int> &A, int 
 }
 
 void improved_quicksort(std::vector<int> &A, int p, int r) {
-    if (r - p >= 15) {
-        while (p < r) {
-            std::pair<int, int> mid = three_mid_partition_with_gathering(A, p, r);
-            improved_quicksort(A, p, mid.first);
-            p = mid.second + 1;
+    std::stack<std::pair<int, int>> s;
+    s.emplace(p, r);
+    while (!s.empty()) {
+        auto [x, y] = s.top();
+        s.pop();
+        if (y - x >= 15) {
+            do {
+                auto [new_x, new_y] = three_mid_partition_with_gathering(A, x, y);
+                s.emplace(x, new_x);
+                x = new_y + 1;
+            } while (x < y);
+        } else {
+            insertion_sort(A, x, y);
         }
-    } else {
-        insertion_sort(A, p, r);
     }
 }
 

@@ -21,8 +21,12 @@ HIT Advanced Algorithm
 
 ## 3. *exp3: Approximation Algorithm*
 
-TODO
+`make clean` can clean target file
+
+`make all` can clean, compile, then run code
 
 ## 4. *exp4: Quicksort*
 
-TODO
+`make clean` can clean target file
+
+`make all` can clean, compile, then run code
