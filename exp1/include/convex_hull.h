@@ -94,7 +94,7 @@ inline set_type graham_scan(set_type v) {
 
 inline set_type divide_and_conquer(set_type v) {
     std::sort(v.begin(), v.end());
-    function_type impl = [&impl](set_type v) -> set_type {
+    static function_type impl = [&](set_type v) -> set_type {
         if (v.size() < 3) {
             return v;
         } else if (v.size() == 3) {
