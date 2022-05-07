@@ -21,7 +21,7 @@ void test(const char* input_path, double concrete, const function_type& f,
 
 int main() {
     const double result_1 = 13.0711, result_2 = 67.0416;
-    bool save = false;
+    bool save = true;
     std::cout << "Unidirection A Star" << std::endl;
     test("./data/1.in", result_1, unidirection_a_star, save, "./target/1.ppm");
     test("./data/2.in", result_2, unidirection_a_star, save, "./target/2.ppm");

@@ -22,7 +22,7 @@ ${TARGET}:
 	${CC} ${SRC_PATH}/main.cc ${CCFLAGS} -o ${TARGET}
 all:
 	make clean && make ${TARGET} && ${TARGET}
-	# make picture && code ${SMALL_TARGET_IMAGE} && code ${BIG_TARGET_IMAGE} && code ${BI_SMALL_TARGET_IMAGE} && code ${BI_BIG_TARGET_IMAGE}
+	make picture # && code ${SMALL_TARGET_IMAGE} && code ${BIG_TARGET_IMAGE} && code ${BI_SMALL_TARGET_IMAGE} && code ${BI_BIG_TARGET_IMAGE}
 picture:
 	python -c "import cv2;cv2.imwrite('${SMALL_TARGET_IMAGE}', cv2.imread('${SMALL_TEMP_IMAGE}'))"
 	python -c "import cv2;cv2.imwrite('${BIG_TARGET_IMAGE}', cv2.imread('${BIG_TEMP_IMAGE}'))"
